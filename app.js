@@ -9,7 +9,6 @@ const msg = document.querySelector(".msg");
 
 for(let select of dropdowns) {
     for (let crrCode in countryList){
-        // console.log(code, countryList[code]);
         let allOption = document.createElement("option");
         allOption.innerText = crrCode;
         allOption.value = crrCode;
@@ -29,26 +28,22 @@ for(let select of dropdowns) {
 const updateExchangeRate = async () => {
     let amount = document.querySelector(".amount input");
     let amtValue = amount.value;
-    // console.log(amtValue);
     if(amtValue === "" || amtValue < 1) {
         amtValue = 1;
-        amount.value ="1";//this will be set in inpute after click 
+        amount.value ="1"; 
     }
 
     const URL = `${base_URL}/${fromCrr.value.toLowerCase()}/${toCrr.value.toLowerCase()}.json`;
     let response = await fetch(URL);
     let data = await response.json();
-    // console.log(data);
     let rate = data[toCrr.value.toLowerCase()];
-
     let finalAmount = amtValue * rate;
-    // console.log(finalAmount)
+    
     msg.innerText = `${amtValue} ${fromCrr.value} = ${finalAmount} ${toCrr.value}`;
 
 }
 
 const changeFlag = (element) => {
-    // console.log(element);
     let crrCode = element.value;
     let cntryCode = countryList[crrCode];
     let newSrc = `https://flagsapi.com/${cntryCode}/flat/64.png`;
@@ -57,7 +52,7 @@ const changeFlag = (element) => {
 }
 
 btn.addEventListener("click", async (evt) => {
-    evt.preventDefault();//form nu default behaviour hoy k submit par click kariye to page refresh thay
+    evt.preventDefault();
     updateExchangeRate();
 });
 
